@@ -28,7 +28,8 @@ int _printf(const char *format, ...)
                 case 'c':
                     _putchara(va_arg(argument, int));
                     break;
-                case 's':
+                case 's':{
+                    char *str = va_arg(argument, char *);
                     if (str == NULL)
                     {
                         _putstr("(null)");
@@ -39,6 +40,7 @@ int _printf(const char *format, ...)
                     counter += (s_counter - 1);
                     }
                     break;
+                         }
                 case '%':
                     _putchara('%');
                     break;
