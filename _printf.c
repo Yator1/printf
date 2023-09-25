@@ -33,7 +33,7 @@ int _printf(const char *format, ...)
         }
         else if (format[i + 1] == '%')
         {
-            _putchar('%');
+            _putchara('%');
         }
         counter++;
     }
