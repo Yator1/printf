@@ -18,6 +18,7 @@ int _printf(const char *format, ...)
         if (format[i] != '%')
         {
             _putchara(format[i]);
+            counter++;
         }
         else
         {
@@ -28,8 +29,15 @@ int _printf(const char *format, ...)
                     _putchara(va_arg(argument, int));
                     break;
                 case 's':
+                    if (str == NULL)
+                    {
+                        _putstr("(null)");
+                        counter += 6;
+                    }
+                    else{
                     s_counter = _putstr(va_arg(argument, char *));
                     counter += (s_counter - 1);
+                    }
                     break;
                 case '%':
                     _putchara('%');
