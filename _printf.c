@@ -50,5 +50,6 @@ int _printf(const char *format, ...)
         }
         counter += 1;
     }
+    va_end(argument);
     return(counter);
 }
