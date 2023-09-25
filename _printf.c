@@ -20,34 +20,22 @@ int _printf(const char *format, ...)
             _putchara(format[i]);
             counter++;
         }
-        else
+        else if (format[i + 1] == 'c')
         {
+            _putchara(va_arg(argument, int));
             i++;
-            switch (format[i])
-            {
-                case 'c':
-                    _putchara(va_arg(argument, int));
-                    counter++;
-                    break;
-                case 's':{
-                    char *str = va_arg(argument, char *);
-                    if (str == NULL)
-                    {
-                        _putstr("(null)");
-                        counter += 6;
-                    }
-                    else{
-                    s_counter = _putstr(va_arg(argument, char *));
-                    counter += (s_counter - 1);
-                    }
-                    break;
-                         }
-                case '%':
-                    _putchara('%');
-                    counter++;
-                    break;
-            }
         }
+        else if (format[i + 1] == 's')
+        {
+            s_counter = _putstr(va_arg(argument, char *));
+            i++;
+            counter += (s_counter - 1);
+        }
+        else if (format[i + 1] == '%')
+        {
+            _putchar('%');
+        }
+        counter++;
     }
     va_end(argument);
     return(counter);
