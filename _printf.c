@@ -27,6 +27,7 @@ int _printf(const char *format, ...)
             {
                 case 'c':
                     _putchara(va_arg(argument, int));
+                    counter++;
                     break;
                 case 's':{
                     char *str = va_arg(argument, char *);
@@ -43,6 +44,7 @@ int _printf(const char *format, ...)
                          }
                 case '%':
                     _putchara('%');
+                    counter++
                     break;
             }
         }
