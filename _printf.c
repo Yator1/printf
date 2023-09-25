@@ -7,36 +7,60 @@
 
 int _printf(const char *format, ...)
 {
-    int i, s_counter, counter = 0;
+int i, j, c;
+va_list args;
 
-    va_list argument;
+va_start(args, format);
 
-    va_start(argument, format);
+for (i = 0; format[i] != '\0'; i++)
+{
+if (format[i] != '%')
+{
+_putchara(format[i]);
+}
+else
+{
+i++;
+switch (format[i])
+{
+case 's':
+{
+char *str = va_arg(args, char *);
+if (str != NULL)
+{
+while (*str)
+{
+_putchara(*str);
+str++;
+}
+}
+else
+{
+char nullStr[] = "(null)";
+for (j = 0; nullStr[j] != '\0'; j++)
+{
+_putchara(nullStr[j]);
+}
+}
+break;
+}
+case 'c':
+{
+c = va_arg(args, int);
+_putchara((char)c);
+break;
+}
+case '%':
+_putchara('%');
+break;
+default:
+_putchara('%');
+_putchara(format[i]);
+break;
+}
+}
+}
 
-    for (i = 0;format[i] != '\0'; i++)
-    {
-        if (format[i] != '%')
-        {
-            _putchara(format[i]);
-            counter++;
-        }
-        else if (format[i + 1] == 'c')
-        {
-            _putchara(va_arg(argument, int));
-            i++;
-        }
-        else if (format[i + 1] == 's')
-        {
-            s_counter = _putstr(va_arg(argument, char *));
-            i++;
-            counter += (s_counter - 1);
-        }
-        else if (format[i + 1] == '%')
-        {
-            _putchara('%');
-        }
-        counter++;
-    }
-    va_end(argument);
-    return(counter);
+va_end(args);
+return (i);
 }
